@@ -4,12 +4,17 @@
     <meta charset="UTF-8" />
     <link rel="icon" href="/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src=""></script>
+    <script src="./vue.js"></script>
+    <script type="module" src="/src/main.ts"></script>
     <title>Vite App</title>
   </head>
   <body>
-    <div id="root">{{school}}</div>
-    <script type="module" src="/src/main.ts"></script>
+    <div id="root">
+      1.<input type="text" :value="school"><br>
+      2.<input type="text" v-model:value="school">
+      {{school}}
+    </div>
+    
     <script>
       const v=new Vue({
         el: '#root',//el用于指定当前Vue实例为哪个容器服务，值是选择器字符串
