@@ -10,18 +10,18 @@
   </head>
   <body>
     <div id="root">
-      1.<input type="text" @keyup.enter="show"><br>
+      1.<input type="text" v-model="what"><br>
       2.<input type="text" v-model="school">
       <button @click="demo">ssssclick</button>
       <!-- .prevent是事件修饰符 "show"就是表达式 是写在Vue中的methods里的函数 有了prevent就只会执行show() 不会跳转链接了-->
       <a href="http://baidu.com" @click.prevent="show($event)">eee</a>
-      {{school}}
     </div>
     <script>
       new Vue({
         el:'#root',
         data:{
-          school:'22'
+          school:'22',
+          what:'1'
         },
         methods:{
           demo(event){
@@ -30,6 +30,9 @@
           show(event){
             console.log(event.target.innerText)
           }
+        },
+        computer:{
+          dd:1
         }
       })
     </script>
