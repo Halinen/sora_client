@@ -10,17 +10,27 @@
   </head>
   <body>
     <div id="root">
-      1.<input type="text" :value="school"><br>
-      2.<input type="text" v-model:value="school">
+      1.<input type="text" @keyup.enter="show"><br>
+      2.<input type="text" v-model="school">
+      <button @click="demo">ssssclick</button>
+      <!-- .prevent是事件修饰符 "show"就是表达式 是写在Vue中的methods里的函数 有了prevent就只会执行show() 不会跳转链接了-->
+      <a href="http://baidu.com" @click.prevent="show($event)">eee</a>
       {{school}}
     </div>
-    
     <script>
-      const v=new Vue({
-        el: '#root',//el用于指定当前Vue实例为哪个容器服务，值是选择器字符串
-        data: {
-          school: 'smxx'
-        },//data存储数据，为root容器提供数据，值为一个对象
+      new Vue({
+        el:'#root',
+        data:{
+          school:'22'
+        },
+        methods:{
+          demo(event){
+            console.log(event.target.innerText)
+          },
+          show(event){
+            console.log(event.target.innerText)
+          }
+        }
       })
     </script>
   </body>
