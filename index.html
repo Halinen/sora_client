@@ -12,16 +12,31 @@
     <div id="root">
       1.<input type="text" v-model="what"><br>
       2.<input type="text" v-model="school">
+      <br>
+      <input type="text" v-model="keyword">
+      <li  v-for="(item,index) in fmtPersons" :key="item.id">
+        {{item.name}}--{{item.age}}
+      </li>
+
       <button @click="demo">ssssclick</button>
       <!-- .prevent是事件修饰符 "show"就是表达式 是写在Vue中的methods里的函数 有了prevent就只会执行show() 不会跳转链接了-->
       <a href="http://baidu.com" @click.prevent="show($event)">eee</a>
+      {{sentence}}
+      <br>
     </div>
     <script>
-      new Vue({
+      const vm = new Vue({
         el:'#root',
         data:{
-          school:'22',
-          what:'1'
+          school:'ssxx',
+          what:'21',
+          full:'',
+          keyword:'',
+          arr:[
+            {id:0,name:'acc',age:11},
+            {id:1,name:'bcc',age:7},
+            {id:2,name:'daa',age:1}
+          ]
         },
         methods:{
           demo(event){
@@ -31,9 +46,42 @@
             console.log(event.target.innerText)
           }
         },
-        computer:{
-          dd:1
+        computed:{
+          fmtPersons(){
+            const {arr,keyword} = this
+            return arr.filter( p => p.name.indexOf(keyword) !== -1)
+          },
+          sentence:{
+            set(value){
+              const arr=value.split('-')
+              this.what = arr[0]
+              this.school = arr[1]
+            },
+            get(){
+              return this.what+'-'+this.school
+            }
+          },
+        },
+        watch:{
+          // what(newValue, oldValue){
+          //   console.log('sss'+newValue);
+          // }
+          full:{
+            handler:function(){
+              return this.what+'-'+this.school
+            }
+          },
+          // keyword(newValue, oldValue) {
+          //   // 过滤出满足 包含keyword的name  在watch中修改原数据，导致原数据的丢失 ----xxxxxxx
+          //   const aa = this.arr.filter( p => p.name.indexOf(newValue) !== -1)
+          //   this.arr = aa
+          // }
         }
+      })
+      vm.$watch('school',{
+        handler:function(){
+              return this.what+'-'+this.school
+            }
       })
     </script>
   </body>
