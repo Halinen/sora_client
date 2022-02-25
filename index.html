@@ -23,6 +23,9 @@
       <a href="http://baidu.com" @click.prevent="show($event)">eee</a>
       {{sentence}}
       <br>
+      <br>
+      <button @click="death()">sss</button>
+      <br>
     </div>
     <script>
       const vm = new Vue({
@@ -31,6 +34,7 @@
           school:'ssxx',
           what:'21',
           full:'',
+          age:1,
           keyword:'',
           arr:[
             {id:0,name:'acc',age:11},
@@ -44,6 +48,10 @@
           },
           show(event){
             console.log(event.target.innerText)
+          },
+          death(){
+            console.log(111111);
+            this.$destroy()
           }
         },
         computed:{
@@ -76,6 +84,16 @@
           //   const aa = this.arr.filter( p => p.name.indexOf(newValue) !== -1)
           //   this.arr = aa
           // }
+        },
+        //Vue实例挂载完毕
+        mounted(){
+          this.timer = setInterval(()=>{
+            this.age+=1
+          },200)
+          console.log('start crl',this)
+        },
+        beforeDestroy(){
+          clearInterval(this.timer)
         }
       })
       vm.$watch('school',{
